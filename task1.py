@@ -49,6 +49,20 @@ def startingIndex(wordLength, startingIndex):
 			index+= wordLength[key]
 	return index
 
+def stringToAscii(word):
+
+	return	[ord(letter) for letter in word]
+
+def asciiToString(word):
+	return ''.join(chr(letter) for letter in word)
+
+# def populateGraph(starting, ending, dictionary):
+# 	if  not len(startingState) == len(endingState):
+
+# def getSuccessors(dictionary, word):
+
+
+
 # parse json file and return the keys of the json object
 def parseJson(fileName):
 	f=open(fileName)
@@ -71,7 +85,7 @@ graph = {'Apple': ['abple', 'bhdfs'],
 dictionary = parseJson('dictionary.json')
 dictionary.sort(lambda x,y: cmp(len(x), len(y)))
 # print dictionary
-# iterator = 0
+iterator = 0
 
 # for keys in dictionary:
 # 	if(iterator==1000):
@@ -81,21 +95,56 @@ dictionary.sort(lambda x,y: cmp(len(x), len(y)))
 
 
 wordLength = calculateWordsLength(dictionary)
-print wordLength
-starting  = "food"
+# print wordLength
+starting  = "HEAT"
 
-iterator = 0
-# startIndex = wordLength[len(starting)-1]
+# iterator = 0
+# # startIndex = wordLength[len(starting)-1]
 endIndex = wordLength[len(starting)]
 
 index = startingIndex(wordLength,endIndex)
-print index
-print endIndex
+# print index
+# print endIndex
 
-for key in dictionary[index:index+endIndex]:
-	# print key
-	iterator+=1
-print "total",iterator
+# for key in dictionary[index:index+endIndex]:
+# 	print key
+# 	iterator+=1
+# print "total",iterator
+
+
+
+#find chain
+wordChain = {}
+# 
+# print wordAscii
+# word = asciiToString(wordAscii)
+# print word
+
+# Ascii -> A= 65 Z= 90
+wordAscii = stringToAscii(starting)
+print wordAscii
+child = []
+for letter in range(0, len(wordAscii)):
+	# print wordAscii[letter]
+	# temp = wordAscii
+	temp = []
+	for change in range(65,91):
+		tempAscii = list(wordAscii)
+		tempAscii[letter] = change
+		# print asciiToString(temp)
+		tempString = asciiToString(tempAscii)
+		if tempString in dictionary[index:index+endIndex]:
+			child.append(tempString)
+		# print "word",wordAscii
+	# temp = wordAscii
+
+print child
+	
+		
+
+
+# dictionary[index:index+endIndex]
+
 # print(maxPath(findAllPaths(graph,'A','D')))
 
 
