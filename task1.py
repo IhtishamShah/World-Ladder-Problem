@@ -59,7 +59,25 @@ def asciiToString(word):
 # def populateGraph(starting, ending, dictionary):
 # 	if  not len(startingState) == len(endingState):
 
-# def getSuccessors(dictionary, word):
+def getSuccessors(dictionary, word, startingIndex, endingIndex):
+
+	wordAscii = stringToAscii(word)
+	child = []
+	for letter in range(0, len(wordAscii)):
+		# print wordAscii[letter]
+		# temp = wordAscii
+		temp = []
+		for change in range(65,91):
+			tempAscii = list(wordAscii)
+			tempAscii[letter] = change
+			# print asciiToString(temp)
+			tempString = asciiToString(tempAscii)
+			if tempString in dictionary[startingIndex:startingIndex+endingIndex]:
+				child.append(tempString)
+			# print "word",wordAscii
+		# temp = wordAscii
+
+	return child
 
 
 
@@ -95,16 +113,16 @@ iterator = 0
 
 
 wordLength = calculateWordsLength(dictionary)
-# print wordLength
+print wordLength
 starting  = "HEAT"
+endIndex = wordLength[len(starting)]
 
 # iterator = 0
 # # startIndex = wordLength[len(starting)-1]
-endIndex = wordLength[len(starting)]
 
 index = startingIndex(wordLength,endIndex)
-# print index
-# print endIndex
+print index
+print endIndex
 
 # for key in dictionary[index:index+endIndex]:
 # 	print key
@@ -121,24 +139,23 @@ wordChain = {}
 # print word
 
 # Ascii -> A= 65 Z= 90
-wordAscii = stringToAscii(starting)
-print wordAscii
-child = []
-for letter in range(0, len(wordAscii)):
-	# print wordAscii[letter]
-	# temp = wordAscii
-	temp = []
-	for change in range(65,91):
-		tempAscii = list(wordAscii)
-		tempAscii[letter] = change
-		# print asciiToString(temp)
-		tempString = asciiToString(tempAscii)
-		if tempString in dictionary[index:index+endIndex]:
-			child.append(tempString)
-		# print "word",wordAscii
-	# temp = wordAscii
-
-print child
+	# wordAscii = stringToAscii(starting)
+	# print wordAscii
+	# child = []
+	# for letter in range(0, len(wordAscii)):
+	# 	# print wordAscii[letter]
+	# 	# temp = wordAscii
+	# 	temp = []
+	# 	for change in range(65,91):
+	# 		tempAscii = list(wordAscii)
+	# 		tempAscii[letter] = change
+	# 		# print asciiToString(temp)
+	# 		tempString = asciiToString(tempAscii)
+	# 		if tempString in dictionary[index:index+endIndex]:
+	# 			child.append(tempString)
+	# 		# print "word",wordAscii
+	# 	# temp = wordAscii
+print getSuccessors(dictionary,starting, index, endIndex)
 	
 		
 
