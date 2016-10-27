@@ -1,5 +1,5 @@
 import json
-import networkx as nx
+
 import distance
 import csv
 
@@ -49,7 +49,7 @@ def findChain(wordDictionary, word,target, startingIndex, endingIndex, chain):
         print target, " is not in dictionary."
         return
     if len(word) != len(target):
-        print "Word length needs to be the same in order to determine ladder"
+        print "Word length needs to be the same"
         return
     start = (word,[word])
     frontier = []
@@ -126,8 +126,8 @@ def chainFrequency():
         writer = csv.writer(csv_file, delimiter=',')
         writer.writerow(["ChainLength","Frequency"])
         for row in chainFreq.keys():
-            # if row:
-            # print "Entering data"
+            print "Chain Length: ", row
+            print "Frequency:  ", chainFreq[row]
             rowData = [row,chainFreq[row]]
             writer.writerow(rowData)
     longest = []
@@ -136,7 +136,7 @@ def chainFrequency():
     maxChain = max(chainFreq.keys())
     maxChains = [key for key in chains if key[3] == maxChain ]
     
-    print "chains with max length i.e. "+maxChain+ ":\n"
+    print "chains with max length i.e. "+str(maxChain)+ ":\n"
     for key in maxChains:
         print "Starting Point: ", key[0]
         print "Destination: ", key[1]
@@ -165,13 +165,19 @@ wordLength = calculateWordsLength(dictionary)
 while True:
     choice  = raw_input("Enter choice\n1.Find Chaing between 2 words\n2.Find all chains\n3.Create Frequency Distribution and check longest chain:\n4.Exit\n\n")
     if(int(choice) == 1):
+        print "Enter Capital Letters"
         source = raw_input("Enter starting word: ")
         destination = raw_input("Enter destination word: ")
-        index = startingIndex(wordLength,source)
-        endIndex = wordLength[len(source)]
+        if len(source) == len(destination):
 
-        wordChain={}
-        print findChain(dictionary, source,destination, index, endIndex, wordChain)
+            index = startingIndex(wordLength,source)
+            endIndex = wordLength[len(source)]
+            wordChain={}
+            print findChain(dictionary, source,destination, index, endIndex, wordChain)
+        else:
+            break
+
+        
     if(int(choice)==2):
         chainBetweenWords(wordLength)
     if(int(choice)==3):
